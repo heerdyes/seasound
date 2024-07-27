@@ -83,11 +83,49 @@ aout    =               asig*knv
         outs            aout, aout
         endin
 
+;------------ lofi vco -------------;
+        instr           103
+idur    =               p3
+iamp    =               p4
+imd1    =               p5
+imd2    =               p6
+iap     =               imd2/128
+ifrq    mtof            imd1
+iatk    =               iap*idur
+ifn     =               3
+asig    oscil           iamp, ifrq, ifn
+knv     linen           1, iatk, idur, idur-iatk
+aout    =               asig*knv
+        outs            aout, aout
+        endin
+
+;------------ lofi mod vco -------------;
+        instr           104
+idur    =               p3
+iamp    =               p4
+imd1    =               p5
+imd2    =               p6
+ifa     =               0.5
+imod    =               33*imd2/128
+ifrq    mtof            imd1
+iatk    =               0.44*idur
+kmodf   line            imod+ifa, idur, ifa
+ifn     =               3
+iefn    =               4
+ksig    oscil           40, kmodf, iefn
+asig    oscil           iamp, ifrq+ksig, ifn
+knv     linen           1, iatk, idur, idur-iatk
+aout    =               asig*knv
+        outs            aout, aout
+        endin
+
+
 </CsInstruments>
 <CsScore>
 f 1 0 16384 10 1                  ; hifi sine wave
 f 2 0  256  10 1                  ; lofi sine wave
 f 3 0  256   7 0 64 1 128 -1 64 0 ; triangle wave
+f 4 0  256   7 0 256 1            ; unipolar saw env
 
 f 0 3600                          ; wait for 1 hour doing nothing
 e

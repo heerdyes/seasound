@@ -3,7 +3,7 @@ void steptrx() {
   for (int i=0; i<m; i++) {
     if (clk%resns[i]==0) {
       char[] reg=trx[i][pc[i]];
-      if (reg[0]!='0' && reg[1]!='0') { // ensure +ve dur and amp
+      if (reg[0]!='0' && reg[1]!='0' && reg[2]!='0') { // ensure +ve dur and amp
         float dur=map(ab.indexOf(reg[0]), 0, ab.length(), 0f, 1f);
         float p4=map(ab.indexOf(reg[1]), 0, ab.length(), 0f, 1f); // amp
         int p5=32+ab.indexOf(reg[2]);  // midi note 1

@@ -2,6 +2,7 @@ import oscP5.*;
 import netP5.*;
 
 boolean safemode=false; // true => disable n/w osc
+boolean paused=false;
 // n/w osc
 OscP5 op5;
 NetAddress csd;
@@ -67,7 +68,7 @@ void draw() {
   sx+=6;
   tbox(stat, sx, height-24);
   rndrtrx(marginw, margint);
-  if (frameCount%T==0) {
+  if (frameCount%T==0 && !paused) {
     steptrx();
   }
 }

@@ -1,4 +1,4 @@
-void kontrol(){
+void kontrol() {
   //////////// keyboard-fu ////////////
   if (ctlmode && !shfmode) {
     // n steps
@@ -19,6 +19,11 @@ void kontrol(){
     trx[curtrk][pc[curtrk]][ec[curtrk]]=key;
   } else {
     // ctlmode and shfmode //
+    if (key==' ') {
+      paused=!paused;
+      stat="paused: "+paused;
+      return;
+    }
     if (state==0) {
       tmparg=ab.indexOf(key);
       if (tmparg!=-1) {
@@ -34,6 +39,7 @@ void kontrol(){
         stat=String.format("T_%d[col:%d]=%c", curtrk, tmparg, key);
       }
       state=0;
+      stat="state reset.";
     }
   }
 }
